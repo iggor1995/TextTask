@@ -15,10 +15,6 @@ public class Paragraph extends Entity {
         this.serial = serial;
     }
 
-    public List<EntityType> getParts() {
-    return null;
-    } // implement
-
     public void setList(List<Sentence> list) {
         this.list = list;
     }

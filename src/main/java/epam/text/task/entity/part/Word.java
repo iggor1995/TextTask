@@ -11,6 +11,7 @@ public class Word extends Entity{
     private List<Symbol> list = new ArrayList();
     private int serial;
     private Symbol punctMark;
+
     public Word(String text, int serial, Symbol punctMark) {
         super(text);
         this.serial = serial;
