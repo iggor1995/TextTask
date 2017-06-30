@@ -13,7 +13,7 @@ public class FileBuilder {
     public static void buildFile() throws IOException {
         File file = new File(FILENAME);
         FileOutputStream outFile = new FileOutputStream(file);
-        String s = "";
+        String newText = "";
         for(Paragraph paragraph : Filler.getFileText().getList()){
 
             for(Sentence sentence : paragraph.getList()){
@@ -21,19 +21,19 @@ public class FileBuilder {
                 for(Word word : sentence.getList()){
 
                     for (Symbol symbol : word.getList()){
-                        s += symbol.getText();
+                        newText += symbol.getText();
                     }
                     if(word.getPunctMark() != null){
-                        s += word.getPunctMark().getText();
+                        newText += word.getPunctMark().getText();
                     }
-                    s += SPACE;
+                    newText += SPACE;
                 }
             }
-            s = s.trim();
-            s += ENTER;
+            newText = newText.trim();
+            newText += ENTER;
         }
-        s = s.trim();
-        outFile.write(s.getBytes());
+        newText = newText.trim();
+        outFile.write(newText.getBytes());
         outFile.close();
     }
 }

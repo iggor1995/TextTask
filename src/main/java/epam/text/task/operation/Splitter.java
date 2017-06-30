@@ -13,6 +13,14 @@ public class Splitter {
     private static final String DOTC = "~dot.";
     private static final String EXPOINTC = "~expoint!";
     private static final String QUESTMARKC = "~questmark?";
+    private static final String DOTS = "~dot";
+    private static final String EXPOINTS = "~expoint";
+    private static final String QUESTMARKS = "~questmark";
+    private static final String DOT = ".";
+    private static final String EXPOINT = "!";
+    private static final String QUESTMARK = "?";
+    private static final String DELETESYMB = "";
+
 
     public static List<Paragraph> getParList(Entity entity) {
         List<Paragraph> paragraphs = new ArrayList();
@@ -34,9 +42,9 @@ public class Splitter {
         String[] str = text.split("[.!?]\\s*");
 
         for (int i = 0; i < str.length; i++) {
-            str[i] = str[i].replace("~dot", ".");
-            str[i] = str[i].replace("~expoint", "!");
-            str[i] = str[i].replace("~questmark", "?");
+            str[i] = str[i].replace(DOTS, DOT);
+            str[i] = str[i].replace(EXPOINTS, EXPOINT);
+            str[i] = str[i].replace(QUESTMARKS, QUESTMARK);
             sentences.add(new Sentence(str[i], i));
         }
         return sentences;
@@ -47,16 +55,18 @@ public class Splitter {
         List<Word> words = new ArrayList();
         String[] str = entity.getText().split(" ");
         Pattern p = Pattern.compile("(.+\\.)|(.+,)|(.+\\?)|(.+\\!)");  //if there is punctuation mark in te end, then delete it
+
         for (int i = 0; i < str.length; i++) {
             Matcher m = p.matcher(str[i]);
-            if (m.matches()){
+
+            if (m.matches()) {
                 int strLen = str[i].length();
                 String symbolText = str[i].substring(strLen - 1, strLen);
                 //deleting
-                str[i] = str[i].replaceAll("(\\.)", "");
-                str[i] = str[i].replaceAll(",", "");
-                str[i] = str[i].replaceAll("\\?", "");
-                str[i] = str[i].replaceAll("\\!", "");
+                str[i] = str[i].replaceAll("(\\.)", DELETESYMB);
+                str[i] = str[i].replaceAll(",", DELETESYMB);
+                str[i] = str[i].replaceAll("\\?", DELETESYMB);
+                str[i] = str[i].replaceAll("\\!", DELETESYMB);
                 //creating new word obj with punctSymbol
                 words.add(new Word(str[i], i, new Symbol(symbolText, i)));
             }
@@ -66,15 +76,17 @@ public class Splitter {
         return words;
     }
 
-    public static List<Symbol> getSymbList(Entity entity){
+    public static List<Symbol> getSymbList(Entity entity) {
 
         List<Symbol> symbols = new ArrayList();
         char[] ch = entity.getText().toCharArray();
         String[] str = new String[ch.length];
-        for(int i = 0; i < ch.length; i++){
+
+        for (int i = 0; i < ch.length; i++) {
             str[i] = String.valueOf(ch[i]);
         }
-        for(int i = 0; i < str.length; i++){
+
+        for (int i = 0; i < str.length; i++) {
             symbols.add(new Symbol(str[i], i));
         }
         return symbols;

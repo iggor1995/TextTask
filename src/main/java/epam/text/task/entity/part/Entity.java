@@ -12,7 +12,4 @@ public abstract class Entity {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
 }
